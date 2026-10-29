@@ -443,7 +443,7 @@
         /* Mega Menu (Ports) - Centered fixed positioning */
         .mega-menu {
             position: fixed;
-            top: 118px;
+            /* top: 118px; */
             left: 50%;
             transform: translateX(-50%) translateY(14px);
             background: var(--paper);
@@ -1202,7 +1202,7 @@
         .footer-bottom {
             padding: 28px 0;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             font-family: var(--font-mono);
             font-size: 0.65rem;
@@ -1722,7 +1722,7 @@
 
                         <div class="hero-actions">
                             <a class="btn btn-primary" href="about.html">About Us</a>
-                            <a class="btn btn-outline" href="contact.html">Contact Us</a>
+                            <!-- <a class="btn btn-outline" href="contact.html">Contact Us</a> -->
                         </div>
 
                         <div class="hero-bottom-meta">
@@ -1733,7 +1733,7 @@
                 </div>
 
                 <div class="hero-right">
-                    <img src="./assets/imgs/hero.jpg" alt="Commercial Port Hamburg">
+                    <img src="./assets/imgs/germany-hamburg-ships.jpg" alt="Commercial Port Hamburg">
                     <div class="hero-badge">
                         <i class="fas fa-ship"></i>
                         <div>
@@ -2002,7 +2002,7 @@
 
             <div class="footer-bottom">
                 <div>&copy; 2026 SHIP CHANDLER GERMANY CO., LTD. All rights reserved.</div>
-                <div>Design — Editorial Maritime</div>
+                <!-- <div>Design — Editorial Maritime</div> -->
             </div>
         </div>
     </footer>
@@ -2076,7 +2076,21 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
+            const megaMenuEl = document.querySelector('.mega-menu');
+            const siteHeaderEl = document.getElementById('site-header');
 
+            function positionMegaMenu() {
+                if (!megaMenuEl || !siteHeaderEl) return;
+                const headerRect = siteHeaderEl.getBoundingClientRect();
+                // Anchor the mega menu flush against the bottom of the sticky header,
+                // with a 4px gap so it doesn't visually touch.
+                megaMenuEl.style.top = (headerRect.bottom + 4) + 'px';
+            }
+
+            // Run on load, on scroll (in case the top-bar shrinks on scroll), and on resize
+            window.addEventListener('load', positionMegaMenu);
+            window.addEventListener('scroll', positionMegaMenu, { passive: true });
+            window.addEventListener('resize', positionMegaMenu);
             // --- Sticky Header Effect ---
             const header = document.querySelector('.site-header');
             window.addEventListener('scroll', () => {
